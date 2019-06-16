@@ -31,7 +31,7 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = "false"
 }
 
-resource "google_compute_firewall" "allow-http" {
+resource "google_compute_firewall" "firewall-http" {
   name = "log-access-analytics-firewall"
   network = google_compute_instance.vm_instance.network_interface[0].name
 
@@ -54,7 +54,7 @@ resource "google_compute_firewall" "allow-http" {
 
 terraform {
   backend "gcs" {
-    bucket  = "tf-state-prod-laa"
+    bucket  = "tf-state-laa"
     prefix  = "terraform/state"
   }
 }
