@@ -9,4 +9,9 @@ pipeline {
             }
         }
     }
+    post {
+        unsuccessful {
+            sh 'terraform destroy'
+        }
+    }
 }
