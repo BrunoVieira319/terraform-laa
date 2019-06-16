@@ -2,15 +2,10 @@ variable "project_id" {
   type = "string"
 }
 
-variable "credentials" {
-  type = "string"
-}
-
 provider "google" {
   project = var.project_id
   region = "us-central1"
   zone = "us-central1-c"
-  credentials = var.credentials
 }
 
 resource "google_compute_instance" "vm_instance" {
