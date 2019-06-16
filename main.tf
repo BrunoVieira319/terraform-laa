@@ -32,7 +32,7 @@ resource "google_compute_network" "vpc_network" {
 }
 
 resource "google_compute_firewall" "allow-http" {
-  name = "allow-http"
+  name = "log-access-analytics-firewall"
   network = "default"
 
   allow {
@@ -50,6 +50,12 @@ resource "google_compute_firewall" "allow-http" {
 
   source_ranges = ["0.0.0.0/0"]
   target_tags = ["web"]
+}
+
+terraform {
+  backend "local" {
+    path = "$HOME/terraform-state"
+  }
 }
 
 output "ip" {
