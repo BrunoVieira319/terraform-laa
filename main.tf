@@ -27,12 +27,12 @@ resource "google_compute_instance" "vm_instance" {
 }
 
 resource "google_compute_network" "vpc_network" {
-  name = "log-access-analytics-network"
-  auto_create_subnetworks = "false"
+  name = "${google_compute_instance.vm_instance.name}-network"
+  auto_create_subnetworks = "true"
 }
 
 resource "google_compute_firewall" "firewall-http" {
-  name = "log-access-analytics-firewall"
+  name = "${google_compute_instance.vm_instance.name}-firewall"
   network = google_compute_instance.vm_instance.network_interface[0].name
 
   allow {
@@ -55,6 +55,14 @@ resource "google_compute_firewall" "firewall-http" {
 terraform {
   backend "gcs" {
     bucket  = "tf-state-laa"
+    prefix  = "terraform/state"
+  }
+}
+
+data "terraform_remote_state" "state" {
+  backend = "gcs"
+  config = {
+    bucket = "tf-state-laa"
     prefix  = "terraform/state"
   }
 }
