@@ -11,7 +11,7 @@ provider "google" {
 resource "google_compute_instance" "vm_instance" {
   name = "log-access-analytics"
   machine_type = "n1-standard-4"
-  tags = ["web"]
+  tags = ["http"]
 
   network_interface {
     network = "default"
@@ -26,14 +26,9 @@ resource "google_compute_instance" "vm_instance" {
   }
 }
 
-resource "google_compute_network" "vpc_network" {
-  name = "vpc-network"
-  auto_create_subnetworks = "true"
-}
-
-resource "google_compute_firewall" "firewall" {
-  name = "firewall"
-  network = google_compute_network.vpc_network.name
+resource "google_compute_firewall" "allow_http" {
+  name = "http"
+  network = "default"
 
   allow {
     protocol = "icmp"
@@ -49,7 +44,7 @@ resource "google_compute_firewall" "firewall" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags = ["web"]
+  target_tags = ["http"]
 }
 
 terraform {
