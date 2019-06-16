@@ -3,10 +3,9 @@ pipeline {
     stages {
         stage('Deploy Packer Image') {
             steps {
-                sh '''
-                    terraform init
-                    terraform apply -auto-approve
-                '''
+                sh 'terraform init'
+                sh 'terraform plan -out=plan'
+                sh 'terraform apply plan'
             }
         }
     }
