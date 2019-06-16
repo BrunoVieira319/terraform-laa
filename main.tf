@@ -33,7 +33,7 @@ resource "google_compute_network" "vpc_network" {
 
 resource "google_compute_firewall" "firewall-http" {
   name = "${google_compute_instance.vm_instance.name}-firewall"
-  network = google_compute_instance.vm_instance.network_interface.0.name
+  network = google_compute_network.vpc_network.name
 
   allow {
     protocol = "icmp"
