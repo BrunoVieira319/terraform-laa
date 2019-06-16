@@ -11,7 +11,7 @@ pipeline {
     }
     post {
         unsuccessful {
-            sh 'terraform destroy'
+            sh 'terraform destroy -auto-approve'
         }
     }
 }
