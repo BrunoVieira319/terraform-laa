@@ -2,6 +2,10 @@ variable "project_id" {
   type = "string"
 }
 
+variable "bucket" {
+  type = "string"
+}
+
 provider "google" {
   project = var.project_id
   region = "us-central1"
@@ -54,7 +58,7 @@ resource "google_compute_firewall" "firewall-http" {
 
 terraform {
   backend "gcs" {
-    bucket  = "tf-state-laa"
+    bucket  = var.bucket
     prefix  = "terraform/state"
   }
 }
@@ -62,7 +66,7 @@ terraform {
 data "terraform_remote_state" "state" {
   backend = "gcs"
   config = {
-    bucket = "tf-state-laa"
+    bucket = var.bucket
     prefix  = "terraform/state"
   }
 }
