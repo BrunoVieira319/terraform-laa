@@ -33,7 +33,7 @@ resource "google_compute_network" "vpc_network" {
 
 resource "google_compute_firewall" "allow-http" {
   name = "log-access-analytics-firewall"
-  network = google_compute_instance.vm_instance.network_interface.name
+  network = google_compute_instance.vm_instance.network_interface[0].name
 
   allow {
     protocol = "icmp"
