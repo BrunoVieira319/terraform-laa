@@ -32,7 +32,7 @@ resource "google_compute_network" "vpc_network" {
 }
 
 resource "google_compute_firewall" "allow-http" {
-  name = "${google_compute_instance.vm_instance.name}-firewall"
+  name = "http-firewall"
   network = google_compute_network.vpc_network.name
 
   allow {
