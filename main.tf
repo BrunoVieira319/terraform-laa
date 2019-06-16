@@ -31,7 +31,7 @@ resource "google_compute_network" "vpc_network" {
   auto_create_subnetworks = "true"
 }
 
-resource "google_compute_firewall" "firewall-http" {
+resource "google_compute_firewall" "allow-http" {
   name = "${google_compute_instance.vm_instance.name}-firewall"
   network = google_compute_network.vpc_network.name
 
